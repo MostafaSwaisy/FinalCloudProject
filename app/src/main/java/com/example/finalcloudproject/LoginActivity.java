@@ -20,8 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     Button btn_login;
     FirebaseAuth firebaseAuth;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

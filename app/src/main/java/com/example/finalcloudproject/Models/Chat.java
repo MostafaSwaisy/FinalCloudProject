@@ -1,4 +1,4 @@
-package com.example.realtimechathomeworkfirebase.Model;
+package com.example.finalcloudproject.Models;
 
 public class Chat {
     private String sender;

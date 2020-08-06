@@ -22,6 +22,7 @@ Button register,login ;
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
+
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -33,5 +34,6 @@ Button register,login ;
                 finish();
             }
         });
+
     }
 }

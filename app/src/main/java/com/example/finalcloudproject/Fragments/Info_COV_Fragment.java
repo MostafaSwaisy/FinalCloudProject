@@ -1,80 +1,55 @@
 package com.example.finalcloudproject.Fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.finalcloudproject.Models.Info;
+import com.bumptech.glide.Glide;
 import com.example.finalcloudproject.R;
+import com.example.finalcloudproject.VideoActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 public class Info_COV_Fragment extends Fragment {
 
-  FirebaseFirestore db;
-
+    FirebaseFirestore db;
     ImageView image_info;
     TextView infoText;
-    private StorageReference mStorageRef;
-
-    Bitmap my_image;
-
-    File localFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_info__c_o_v_,container,false);
+        View view = inflater.inflate(R.layout.fragment_info__c_o_v_, container, false);
         image_info = view.findViewById(R.id.image_info);
         infoText = view.findViewById(R.id.info_cov);
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("intro/intro.jpg");
+        //intent to move on video screen
+        view.findViewById(R.id.covVideo_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), VideoActivity.class);
+                startActivity(intent);
+            }
+        });
+//        method read data for static data
+        readData();
+        return view;
+    }
 
-
-        localFile = null;
-        try {
-            localFile = File.createTempFile("intro", "jpg");
-            mStorageRef.getFile(localFile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            my_image = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                            image_info.setImageBitmap(my_image);
-                            Log.d("info" , "SSSSSSSSSSSSSSSSSS" );
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void readData() {
         db = FirebaseFirestore.getInstance();
         db.collection("info")
                 .get()
@@ -83,11 +58,12 @@ public class Info_COV_Fragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                              Map<String , Object> data = document.getData();
-                             String intro = (String) data.get("intro");
-                             String image = (String) data.get("intro_image");
+                                Map<String, Object> data = document.getData();
+                                String intro = (String) data.get("intro");
+                                String image = (String) data.get("intro_image");
                                 infoText.setText(intro);
-                                image_info.setImageURI(Uri.parse(image));
+                                Uri url = Uri.parse(image);
+                                Glide.with(getContext()).load(url).into(image_info);
                                 Log.d("info", document.getId() + " => " + image);
                             }
                         } else {
@@ -95,10 +71,27 @@ public class Info_COV_Fragment extends Fragment {
                         }
                     }
                 });
-
-
-
-
-        return view;
     }
+
+
 }
+//localFile = null;
+//        try {
+//            localFile = File.createTempFile("intro", "jpg");
+//            mStorageRef.getFile(localFile)
+//                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            my_image = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+//                            image_info.setImageBitmap(my_image);
+//                            Log.d("info", "SSSSSSSSSSSSSSSSSS");
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//
+//                }
+//            });
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }

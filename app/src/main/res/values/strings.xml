@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covVideo">watching video COV19</string>
+    <string name="covid_introduction">Read About CoV-19 Virus</string>
+    <string name="back_btn">Back to Home screen</string>
 </resources>

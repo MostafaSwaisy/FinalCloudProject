@@ -3,37 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Info_COV_Fragment"
-    android:background="@color/gray">
+    android:background="@color/gray"
+    tools:context=".Fragments.Info_COV_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ImageView
             android:id="@+id/image_info"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
+
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/covid_introduction"
             android:textColor="@android:color/black"
-            android:text="Read About CoV-19 new Virus"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/info_cov"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="Loading..."
             android:textColor="@color/text_color"
-            android:text="Loading..."/>
+            android:textSize="12sp" />
 
-
+        <Button
+            android:id="@+id/covVideo_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/buttonbackground"
+            android:text="@string/covVideo" />
 
     </LinearLayout>
 

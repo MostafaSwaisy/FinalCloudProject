@@ -7,8 +7,7 @@ public class User {
     }
 
     public User(String username, String id) {
-        this.username = username;
-        this.id = id;
+        this.username = username;this.id = id;
     }
 
     public String getUsername() {
